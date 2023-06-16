@@ -1,6 +1,5 @@
 // function implementation
-import { SendRequestToManagerFunction } from "./definition.ts";
-import { SlackAPI } from "deno-slack-api/mod.ts";
+import { CollectFormDataFunction } from "./definition.ts";
 import { SlackFunction } from "deno-slack-sdk/mod.ts";
 import BlockActionHandler from "./block_actions.ts";
 import { APPROVE_ID, DENY_ID } from "../constants.ts";
@@ -8,14 +7,12 @@ import VIPAwardRequestHeaderBlocks from "../blocks.ts";
 
 // Function implementation
 export default SlackFunction(
-  SendRequestToManagerFunction,
-  async ({ inputs, token }) => {
+  CollectFormDataFunction,
+  async ({ inputs, client }) => {
     console.log(
       "Forwarding the following VIP award request to approving manager:",
       inputs,
     );
-    const client = SlackAPI(token, {});
-    console.log("here's the token!", token);
 
     // Create a block of Block Kit elements composed of the header blocks from blocks.ts
     // Add the interactive approve/deny buttons at the end
@@ -38,6 +35,7 @@ export default SlackFunction(
       ],
     }]);
 
+    // Send the message to the manager
     const msgResponse = await client.chat.postMessage({
       channel: inputs.manager,
       blocks,

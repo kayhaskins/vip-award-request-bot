@@ -1,12 +1,12 @@
 import { SlackAPI } from "deno-slack-api/mod.ts";
-import { SendRequestToManagerFunction } from "./definition.ts";
+import { CollectFormDataFunction } from "./definition.ts";
 import { BlockActionHandler } from "deno-slack-sdk/types.ts";
 import { APPROVE_ID } from "../constants.ts";
 import VIPAwardRequestHeaderBlocks from "../blocks.ts";
 
 // Action handler for interactive blocks
 const block_actions: BlockActionHandler<
-  typeof SendRequestToManagerFunction.definition
+  typeof CollectFormDataFunction.definition
 > = async function ({ action, body, token }) {
   console.log("Incoming action handler invocation", action);
   const client = SlackAPI(token);
