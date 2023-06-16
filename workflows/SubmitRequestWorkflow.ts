@@ -1,7 +1,7 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
-import { SendVIPAwardRequestToManagerFunction } from "../functions/send_request_to_manager/definition.ts";
+import { SendRequestToManagerFunction } from "../functions/send_request_to_manager/definition.ts";
 
-export const SubmitVIPAwardRequestWorkflow = DefineWorkflow({
+export const SubmitRequestWorkflow = DefineWorkflow({
   callback_id: "submit_vip_award_request",
   title: "Submit VIP Award Request",
   description:
@@ -17,11 +17,11 @@ export const SubmitVIPAwardRequestWorkflow = DefineWorkflow({
 });
 
 // Open form for user to input their VIP award request details
-const formData = SubmitVIPAwardRequestWorkflow.addStep(
+const formData = SubmitRequestWorkflow.addStep(
   Schema.slack.functions.OpenForm,
   {
     title: "VIP Award Request Form",
-    interactivity: SubmitVIPAwardRequestWorkflow.inputs.interactivity,
+    interactivity: SubmitRequestWorkflow.inputs.interactivity,
     description:
       "The goal of the VIP award is to provide special recognition to Airshippers who have exemplified the company’s vision and values. Bonuses are available to all regular employees. The size of the awards will vary based on achievement. To maintain consistency, bonuses will be set at $250.",
     submit_label: "Submit",
@@ -64,9 +64,9 @@ const formData = SubmitVIPAwardRequestWorkflow.addStep(
   },
 );
 
-SubmitVIPAwardRequestWorkflow.addStep(SendVIPAwardRequestToManagerFunction, {
+SubmitRequestWorkflow.addStep(SendRequestToManagerFunction, {
   interactivity: formData.outputs.interactivity,
-  requestor: SubmitVIPAwardRequestWorkflow.inputs.interactivity.interactor.id,
+  requestor: SubmitRequestWorkflow.inputs.interactivity.interactor.id,
   recipient: formData.outputs.fields.recipient,
   manager: formData.outputs.fields.manager,
   values: formData.outputs.fields.values,

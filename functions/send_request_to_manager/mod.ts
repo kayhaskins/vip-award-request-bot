@@ -1,13 +1,14 @@
 // function implementation
-import { SendVIPAwardRequestToManagerFunction } from "./definition.ts";
+import { SendRequestToManagerFunction } from "./definition.ts";
 import { SlackAPI } from "deno-slack-api/mod.ts";
 import { SlackFunction } from "deno-slack-sdk/mod.ts";
 import BlockActionHandler from "./block_actions.ts";
-import { APPROVE_ID, DENY_ID } from "./constants.ts";
-import VIPAwardRequestHeaderBlocks from "./blocks.ts";
+import { APPROVE_ID, DENY_ID } from "../constants.ts";
+import VIPAwardRequestHeaderBlocks from "../blocks.ts";
 
+// Function implementation
 export default SlackFunction(
-  SendVIPAwardRequestToManagerFunction,
+  SendRequestToManagerFunction,
   async ({ inputs, token }) => {
     console.log(
       "Forwarding the following VIP award request to approving manager:",

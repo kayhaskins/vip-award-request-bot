@@ -1,11 +1,12 @@
 import { SlackAPI } from "deno-slack-api/mod.ts";
-import { SendVIPAwardRequestToManagerFunction } from "./definition.ts";
+import { SendRequestToManagerFunction } from "./definition.ts";
 import { BlockActionHandler } from "deno-slack-sdk/types.ts";
-import { APPROVE_ID } from "./constants.ts";
-import VIPAwardRequestHeaderBlocks from "./blocks.ts";
+import { APPROVE_ID } from "../constants.ts";
+import VIPAwardRequestHeaderBlocks from "../blocks.ts";
 
+// Action handler for interactive blocks
 const block_actions: BlockActionHandler<
-  typeof SendVIPAwardRequestToManagerFunction.definition
+  typeof SendRequestToManagerFunction.definition
 > = async function ({ action, body, token }) {
   console.log("Incoming action handler invocation", action);
   const client = SlackAPI(token);
@@ -20,14 +21,12 @@ const block_actions: BlockActionHandler<
       elements: [{
         type: "mrkdwn",
         text:
-          `Your VIP Award request for @<${body.function_data.inputs.recipient}> has been ${
-            approved ? "approved!" : "denied."
+          `Your VIP Award request for @<${body.function_data.inputs.recipient}> has been ${approved ? "approved!" : "denied."
           }`,
       }],
     }],
-    text: `Your VIP award request has been ${
-      approved ? "approved!" : "denied."
-    }`,
+    text: `Your VIP award request has been ${approved ? "approved!" : "denied."
+      }`,
   });
 
   if (!msgResponse.ok) {
@@ -37,7 +36,7 @@ const block_actions: BlockActionHandler<
     );
   }
 
-  // Update the approval request message to remove the buttons and reflect the approval stat
+  // Update the approval request message to remove the buttons and reflect the approval status
   const msgUpdate = await client.chat.update({
     channel: body.container.channel_id,
     ts: body.container.message_ts,

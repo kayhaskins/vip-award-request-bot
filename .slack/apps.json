@@ -1,0 +1,11 @@
+{
+  "apps": {
+    "choicepotatoes": {
+      "name": "choicepotatoes",
+      "app_id": "A05DH7S9PQ8",
+      "team_id": "TA9K42GAY",
+      "IsDev": false
+    }
+  },
+  "default": "choicepotatoes"
+}
