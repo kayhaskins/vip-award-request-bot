@@ -1,5 +1,5 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
-import { CollectFormDataFunction } from "../functions/send_request_to_manager/definition.ts";
+import { SendRequestToManagerFunction } from "../functions/send_request_to_manager/definition.ts";
 
 export const SubmitRequestWorkflow = DefineWorkflow({
   callback_id: "submit_vip_award_request",
@@ -65,7 +65,7 @@ const formData = SubmitRequestWorkflow.addStep(
 );
 
 // Step 2: Send VIP request form details along with approve/deny buttons to manager
-SubmitRequestWorkflow.addStep(CollectFormDataFunction, {
+SubmitRequestWorkflow.addStep(SendRequestToManagerFunction, {
   interactivity: formData.outputs.interactivity,
   requestor: SubmitRequestWorkflow.inputs.interactivity.interactor.id,
   recipient: formData.outputs.fields.recipient,
