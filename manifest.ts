@@ -12,6 +12,8 @@ export default Manifest({
   botScopes: [
     "commands",
     "chat:write",
+    "chat.write.bot",
     "chat:write.public",
+    "chat.write.user",
   ],
 });

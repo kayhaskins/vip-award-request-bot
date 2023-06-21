@@ -1,4 +1,3 @@
-// function implementation
 import { SendRequestToManagerFunction } from "./definition.ts";
 import { SlackFunction } from "deno-slack-sdk/mod.ts";
 import BlockActionHandler from "./block_actions.ts";

@@ -1,10 +1,8 @@
 import { DefineFunction, Schema } from "deno-slack-sdk/mod.ts";
 
-// Function definition
 export const SendRequestToManagerFunction = DefineFunction({
-  callback_id: "send_vip_award_request_to_manager",
+  callback_id: "send_request_to_manager",
   title: "Send VIP Award request to manager for approval",
-  description: "Submit a VIP award request for manager approval",
   source_file: "functions/send_request_to_manager/mod.ts",
   input_parameters: {
     properties: {
