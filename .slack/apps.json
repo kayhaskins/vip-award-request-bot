@@ -1,10 +1,10 @@
 {
   "apps": {
-    "choicepotatoes": {
-      "name": "choicepotatoes",
+    "TA9K42GAY": {
       "app_id": "A05DH7S9PQ8",
-      "team_id": "TA9K42GAY",
-      "IsDev": false
+      "IsDev": false,
+      "team_domain": "choicepotatoes",
+      "team_id": "TA9K42GAY"
     }
   },
   "default": "choicepotatoes"

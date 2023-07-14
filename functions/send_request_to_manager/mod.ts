@@ -4,7 +4,6 @@ import BlockActionHandler from "./block_actions.ts";
 import { APPROVE_ID, DENY_ID } from "../constants.ts";
 import VIPAwardRequestHeaderBlocks from "../blocks.ts";
 
-// Function implementation
 export default SlackFunction(
   SendRequestToManagerFunction,
   async ({ inputs, client }) => {

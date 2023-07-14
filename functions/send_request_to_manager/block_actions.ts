@@ -21,12 +21,10 @@ const block_actions: BlockActionHandler<
       elements: [{
         type: "mrkdwn",
         text:
-          `Your VIP Award request for @<${body.function_data.inputs.recipient}> has been ${approved ? "approved!" : "denied."
-          }`,
+          `Your VIP Award request for <@${body.function_data.inputs.recipient}> has been ${approved ? "approved!" : "denied."}`,
       }],
     }],
-    text: `Your VIP award request has been ${approved ? "approved!" : "denied."
-      }`,
+    text: `Your VIP award request has been ${approved ? "approved!" : "denied."}`,
   });
 
   if (!msgResponse.ok) {
