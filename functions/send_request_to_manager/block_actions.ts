@@ -13,7 +13,7 @@ const block_actions: BlockActionHandler<
 
   const approved = action.action_id === APPROVE_ID;
 
-  // Send manager's response to employee
+  // Send manager's response to requestor
   const msgResponse = await client.chat.postMessage({
     channel: body.function_data.inputs.requestor,
     blocks: [{
@@ -21,10 +21,10 @@ const block_actions: BlockActionHandler<
       elements: [{
         type: "mrkdwn",
         text:
-          `Your VIP Award request for <@${body.function_data.inputs.recipient}> has been ${approved ? "approved!" : "denied."}`,
+          `Your VIP Award request for <@${body.function_data.inputs.recipient}> has been ${approved ? "approved" : "denied"} by <@${body.function_data.inputs.manager}>${approved ? "!" : "."}`,
       }],
     }],
-    text: `Your VIP award request has been ${approved ? "approved!" : "denied."}`,
+    text: `Your VIP award request has been ${approved ? "approved" : "denied"} by <@${body.function_data.inputs.manager}>${approved ? "!" : "."}`,
   });
 
   if (!msgResponse.ok) {

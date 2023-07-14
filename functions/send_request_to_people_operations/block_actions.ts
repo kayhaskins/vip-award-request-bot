@@ -13,24 +13,45 @@ const block_actions: BlockActionHandler<
 
     const approved = action.action_id === APPROVE_ID;
 
-    // Send people operations human's to employee
-    const msgResponse = await client.chat.postMessage({
+    // Send people operations human's response to requestor
+    const msgResponseRequestor = await client.chat.postMessage({
         channel: body.function_data.inputs.requestor,
         blocks: [{
             type: "context",
             elements: [{
                 type: "mrkdwn",
                 text:
-                    `Your VIP Award request for <@${body.function_data.inputs.recipient}> has been ${approved ? "approved!" : "denied."}`,
+                    `Your VIP Award request for <@${body.function_data.inputs.recipient}> has been ${approved ? "approved" : "denied"} by People Operations${approved ? "!" : "."}`,
             }],
         }],
-        text: `Your VIP award request has been ${approved ? "approved!" : "denied."}`,
+        text: `Your VIP award request has been ${approved ? "approved" : "denied"} by People Operations${approved ? "!" : "."}`,
     });
 
-    if (!msgResponse.ok) {
+    if (!msgResponseRequestor.ok) {
         console.log(
             "Error during requester update chat.postMessage!",
-            msgResponse.error,
+            msgResponseRequestor.error,
+        );
+    }
+
+    // Send people operations human's response to manager
+    const msgResponseManager = await client.chat.postMessage({
+        channel: body.function_data.inputs.manager,
+        blocks: [{
+            type: "context",
+            elements: [{
+                type: "mrkdwn",
+                text:
+                    `<@${body.function_data.inputs.requestor}>'s VIP Award request for <@${body.function_data.inputs.recipient}> has been ${approved ? "approved" : "denied"} by People Operations${approved ? "!" : "."}`,
+            }],
+        }],
+        text: `<@${body.function_data.inputs.requestor}>'s VIP award request has been ${approved ? "approved" : "denied"} by People Operations${approved ? "!" : "."}`,
+    });
+
+    if (!msgResponseManager.ok) {
+        console.log(
+            "Error during requester update chat.postMessage!",
+            msgResponseManager.error,
         );
     }
 
@@ -49,7 +70,7 @@ const block_actions: BlockActionHandler<
         ]),
     });
     if (!msgUpdate.ok) {
-        console.log("Error during manager chat.update!", msgUpdate.error);
+        console.log("Error during people operations chat.update!", msgUpdate.error);
     }
 
     // Mark the function as completed
